@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Registration Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <h2 class="logo">VehicleReg</h2>
+
+            <a href="#" data-page="overview">Dashboard</a>
+            <a href="#" data-page="add-vehicle">Register Vehicle</a>
+            <a href="#" data-page="my-vehicles">My Vehicles</a>
+            <a href="#" data-page="profile">Profile</a>
+
+            <button id="logoutBtn">Logout</button>
+        </aside>
+
+        <!-- MAIN AREA -->
+        <div class="main-area">
+
+            <!-- TOP BAR -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-btn" id="toggleSidebar">☰</button>
+                    <span class="app-title">Vehicle Registration System</span>
+                </div>
+
+
+                <div class="topbar-right">
+                    <button class="top-btn">🔔</button>
+                    <button class="top-btn">👤</button>
+                    <button class="top-btn">⚙</button>
+                </div>
+            </header>
+
+            <!-- DYNAMIC CONTENT -->
+            <main class="main-content" id="mainContent">
+                <!-- Pages load here -->
+            </main>
+
+        </div>
+
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
