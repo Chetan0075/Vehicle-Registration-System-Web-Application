@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="login-box">
+      <h1>Sign In</h1>
+      <p class="subtitle">Enter your credentials to continue</p>
+
+      <!-- ✅ IDs ADDED -->
+      <input type="email" id="email" placeholder="Email" required>
+
+      <div class="password-box">
+        <input type="password" id="password" placeholder="Password" required>
+        <span class="eye" id="togglePassword">👁</span>
+      </div>
+
+      <div class="options">
+        <a href="forgot_password.html">Forgot password?</a>
+      </div>
+
+      <!-- ✅ BUTTON ID ADDED -->
+      <button id="loginBtn">Sign In</button>
+
+      <p id="msg"></p>
+
+      <p class="signup">
+        Don't have an account? <a href="registration.html">Create one</a>
+      </p>
+
+    </div>
+  </div>
+
+  <!-- ✅ SCRIPT AT BOTTOM -->
+  <script type="module">
+
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+
+    togglePassword.addEventListener("click", () => {
+      const type =
+        passwordInput.getAttribute("type") === "password"
+          ? "text"
+          : "password";
+
+      passwordInput.setAttribute("type", type);
+
+      // Optional: change icon
+      togglePassword.textContent = type === "password" ? "👁" : "🙈";
+    });
+
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword }
+      from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBhhi1H4y9V6U5ZMYceKB1Bk0YYoS5Fzco",
+      authDomain: "notes757575.firebaseapp.com",
+      projectId: "notes757575",
+      storageBucket: "notes757575.firebasestorage.app",
+      messagingSenderId: "521967825245",
+      appId: "1:521967825245:web:b4c77570190bfd611878b4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          window.location.href = "Dashboard/dashboard.html";
+        })
+        .catch((error) => {
+          const msg = document.getElementById("msg");
+
+          switch (error.code) {
+            case "auth/invalid-credential":
+            case "auth/wrong-password":
+              msg.innerText = "Incorrect email or password.";
+              break;
+
+            case "auth/user-not-found":
+              msg.innerText = "No account found with this email.";
+              break;
+
+            case "auth/invalid-email":
+              msg.innerText = "Please enter a valid email address.";
+              break;
+
+            case "auth/too-many-requests":
+              msg.innerText = "Too many attempts. Please try again later.";
+              break;
+
+            default:
+              msg.innerText = "Login failed. Please try again.";
+          }
+
+          msg.style.color = "red";
+        });
+
+    });
+  </script>
+
+</body>
+
+</html>
